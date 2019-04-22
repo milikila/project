@@ -13,6 +13,14 @@ npm run dev
 
 # build for production with minification
 npm run build
+#npm install vuex --save
+必须安装vuex
+
+#npm install echarts --save
+必须安装echarts图表插件
+
+使用前端框架iview
+#npm install iview --save
 
 # build for production and view the bundle analyzer report
 npm run build --report
