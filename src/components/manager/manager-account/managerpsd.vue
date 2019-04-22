@@ -87,7 +87,6 @@ export default {
   height: 2rem;
   margin: 2rem 0;
   line-height: 2rem;
-  /* flex-direction: column; */
 }
 .managepsd-content-info-name {
   width: 20%;

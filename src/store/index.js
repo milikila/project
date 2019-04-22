@@ -6,6 +6,11 @@ let state = {
     username: '',
     passoword: ''
   },
+  about: {
+    tel: '',
+    email: '',
+    address: ''
+  },
   LoginTitle: '登录/注册'
 }
 let getters = {
@@ -17,6 +22,12 @@ let mutations = {
     state.managerPsd.password = data.password
     console.log(state.managerPsd.username)
     console.log(state.managerPsd.password)
+  },
+  updateabout (state, data) {
+    state.about.tel = data.tel
+    state.about.email = data.email
+    state.about.address = data.address
+    console.log(state.about.tel)
   },
   updateLoginTitle (state, data) {
     state.LoginTitle = data

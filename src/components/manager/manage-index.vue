@@ -42,6 +42,12 @@
               </template>
               <MenuItem name="募捐结果统计" to="/resultTotal">募捐结果统计</MenuItem>
             </Submenu>
+            <Submenu name="修改网站介绍">
+              <template slot="title">
+                <Icon type="md-stats" />修改联系方式
+              </template>
+              <MenuItem name="修改网站介绍" to="/changeRelation">修改联系方式</MenuItem>
+            </Submenu>
           </Menu>
         </Col>
       </Row>
@@ -63,7 +69,6 @@ export default {
 </script>
 <style scoped>
 .manage-index {
-  /* background: #f00; */
   display: flex;
   top: 3.9rem;
   position: absolute;
@@ -81,8 +86,6 @@ export default {
 }
 .manage-content {
   display: flex;
-  /* background: #ff0; */
-  /* height: auto; */
   width: 90%;
   margin-left: 20px;
 }

@@ -6,6 +6,12 @@
           <img class="imgs" :src="IndexImg">
         </div>
       </div>
+      <div class="header-about-contents">
+        <router-link to = "/" class="header-about">首页</router-link>
+        <router-link to = "/" class="header-about">平台简介</router-link>
+        <router-link to = "/relation" class="header-about">联系我们</router-link>
+        <router-link to = "/" class="header-about">我们的伙伴</router-link>
+      </div>
       <div class="header-title">
         <div class="header-title-btn"  @click="login()">
           <div class="login-btns">{{title}}</div>
@@ -41,7 +47,7 @@
           </div>
           <div class="login-content-info-list" v-show="confirmPassword">
             <label class="login-info-username">年龄</label>
-            <InputNumber class="inputName" min="20" v-model="value4"></InputNumber>
+            <InputNumber class="inputName"  v-model="value4"></InputNumber>
           </div>
           <div class="login-content-info-list" v-show="confirmPassword">
             <label class="login-info-username">地&nbsp;&nbsp;&nbsp;&nbsp;址&nbsp;&nbsp;</label>
@@ -183,9 +189,20 @@ export default {
   display: flex;
 }
 .header-title {
-  width: 30%;
+  width: 40%;
   display: flex;
   justify-content: flex-end;
+}
+.header-about-contents{
+  width: 50%;
+  display: flex;
+  font-weight: bold;
+  font-size: 15px;
+}
+.header-about {
+  line-height: 4rem;
+  width: 30%;
+  text-align: center;
 }
 .header-title-btn {
   display: flex;
@@ -196,7 +213,7 @@ export default {
   justify-content: flex-end;
 }
 .header-title-img {
-  width: 70%;
+  width: 40%;
   height: 4rem;
   margin-left: 5%;
 }

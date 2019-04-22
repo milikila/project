@@ -116,7 +116,6 @@ export default {
 <style>
 .raiseMoney {
   width: 100%;
-  /* height: 100%; */
   overflow: auto;
 }
 .raiseMoney-confirm {
@@ -144,7 +143,6 @@ export default {
   height: 50%;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   flex-direction: column;
 }
 .raiseMoney-confirm-title {
