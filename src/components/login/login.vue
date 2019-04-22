@@ -10,7 +10,7 @@
         <router-link to = "/" class="header-about">首页</router-link>
         <router-link to = "/" class="header-about">平台简介</router-link>
         <router-link to = "/relation" class="header-about">联系我们</router-link>
-        <router-link to = "/" class="header-about">我们的伙伴</router-link>
+        <router-link to = "/partner" class="header-about">我们的伙伴</router-link>
       </div>
       <div class="header-title">
         <div class="header-title-btn"  @click="login()">

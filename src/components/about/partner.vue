@@ -1,21 +1,8 @@
 <template>
   <div class="relation">
     <div class="relation-about-contents">
-      <div class="relation-title">联系我们</div>
+      <div class="relation-title">我们的伙伴</div>
       <div class="relation-contents">
-        <div class="relation-contents-list">
-          <div class="relation-contents-list-name">电话：</div>
-          <div class="relation-contents-list-name" v-html="tel">
-          </div>
-        </div>
-        <div class="relation-contents-list">
-          <div class="relation-contents-list-name">电邮：</div>
-          <div class="relation-contents-list-name" v-html="email"></div>
-        </div>
-        <div class="relation-contents-list">
-          <div class="relation-contents-list-name">地址：</div>
-          <div class="relation-contents-list-name" v-html="address"></div>
-        </div>
       </div>
     </div>
   </div>

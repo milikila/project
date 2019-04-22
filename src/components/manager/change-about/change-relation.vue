@@ -74,14 +74,20 @@ export default {
       if (this.showIndexNumber === 1) {
         this.tel = this.content
         this.relation.tel = this.tel
+        this.relation.address = this.$store.state.about.address
+        this.relation.email = this.$store.state.about.email
         this.$store.commit('updateabout', this.relation)
       } else if (this.showIndexNumber === 2) {
         this.address = this.content
         this.relation.address = this.address
+        this.relation.tel = this.$store.state.about.tel
+        this.relation.email = this.$store.state.about.email
         this.$store.commit('updateabout', this.relation)
       } else {
         this.email = this.content
         this.relation.email = this.email
+        this.relation.address = this.$store.state.about.address
+        this.relation.tel = this.$store.state.about.tel
         this.$store.commit('updateabout', this.relation)
       }
     },

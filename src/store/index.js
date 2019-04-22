@@ -27,7 +27,7 @@ let mutations = {
     state.about.tel = data.tel
     state.about.email = data.email
     state.about.address = data.address
-    console.log(state.about.tel)
+    console.log('1', state.about)
   },
   updateLoginTitle (state, data) {
     state.LoginTitle = data

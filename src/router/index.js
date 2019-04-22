@@ -6,6 +6,7 @@ import User from '@/components/manager/user/user'
 import HelpUser from '@/components/manager/user/helpUser'
 import Donator from '@/components/help/donator'
 import relation from '@/components/about/relation'
+import partner from '@/components/about/partner'
 import DonatorDetails from '@/components/help/donator-details'
 import IndexContent from '@/components/Index/index'
 import ManagerPsd from '@/components/manager/manager-account/managerpsd'
@@ -14,6 +15,7 @@ import Auditing from '@/components/manager/auditing/auditing'
 import usersetting from '@/components/help/usersetting'
 import raiseUse from '@/components/help/raise-use'
 import changeRelation from '@/components/manager/change-about/change-relation'
+import changePartner from '@/components/manager/change-about/change-partner'
 import resultTotal from '@/components/manager/result/result-total'
 import resultManage from '@/components/manager/result/result-manage'
 Vue.use(Router)
@@ -29,11 +31,15 @@ export default new Router({
           component: usersetting
         },
         {
-          path: 'relation',
+          path: '/relation',
           component: relation
         },
         {
-          path: 'IndexContent',
+          path: '/partner',
+          component: partner
+        },
+        {
+          path: '/IndexContent',
           component: IndexContent
         },
         {
@@ -70,6 +76,10 @@ export default new Router({
           {
             path: '/changeRelation',
             component: changeRelation
+          },
+          {
+            path: '/changePartner',
+            component: changePartner
           },
           {
             path: '/managerPsd',
