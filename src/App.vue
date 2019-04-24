@@ -6,14 +6,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 // import IndexContent from '@/components/Index/index'
 export default {
   data () {
     return {
     }
   },
-  // components: {
-  //   IndexContent: IndexContent
+  // computed: {
+  //   ...mapGetters([
+  //     'allowBack'
+  //   ])
+  // },
+  // mounted () {
+  //   window.onponstate = () => {
+  //     if (!this.allowBack) {
+  //       history.go(1)
+  //     }
+  //   }
+  //   // history.pushState(null, null, document.URL)
+  //   // window.addEventListener('popstate', function () {
+  //   //   history.pushState(null, null, document.URL)
+  //   // })
   // },
   created () {
     if (localStorage.getItem('store')) {

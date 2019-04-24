@@ -20,6 +20,7 @@ Vue.prototype.$echarts = echarts
 new Vue({
   router,
   store,
+  // render: (h) => h(App),
   components: { App },
   template: '<App/>'
 }).$mount('#app')

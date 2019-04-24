@@ -25,6 +25,7 @@ export default new Router({
     {
       path: '/',
       component: Index,
+      // meta: {allowBack: false},
       children: [
         {
           path: '/usersetting',
@@ -99,3 +100,16 @@ export default new Router({
     }
   ]
 })
+// let allowBack = true
+// router.beforeEach(async (to, next) => {
+//   next()
+//   if (to.meta.allowBack !== undefined) {
+//     allowBack = to.meta.allowBack
+//   }
+//   if (!allowBack) {
+//     history.pushState(null, null, location.href)
+//   }
+//   this.$store.dispatch('updateAppSetting', {
+//     allowBack: allowBack
+//   })
+// })
