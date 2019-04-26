@@ -58,7 +58,5 @@ export default {
 .main-content-title {
   padding: 0 3%;
   font-size: 20px;
-  /* display: flex;
-  flex-direction: column; */
 }
 </style>

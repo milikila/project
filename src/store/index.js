@@ -13,7 +13,7 @@ let state = {
     email: '',
     address: ''
   },
-  LoginTitle: '登录/注册'
+  LoginTitle: ''
 }
 let getters = {
   updateLoginTitle: state => state.LoginTitle,
@@ -28,18 +28,14 @@ let mutations = {
   updateUsernamePassowrd (state, data) {
     state.managerPsd.username = data.username
     state.managerPsd.password = data.password
-    console.log(state.managerPsd.username)
-    console.log(state.managerPsd.password)
   },
   updateabout (state, data) {
     state.about.tel = data.tel
     state.about.email = data.email
     state.about.address = data.address
-    console.log('1', state.about)
   },
   updateLoginTitle (state, data) {
     state.LoginTitle = data
-    console.log('3', state.LoginTitle)
   }
   // [types.UPDATE_APPSETTING] (state, { allowBack }) { // 真正改变allowBack的mutation
   //   state.allowBack = allowBack
@@ -48,7 +44,6 @@ let mutations = {
 
 export default new Vuex.Store({
   state,
-  // actions,
   mutations,
   getters
 })

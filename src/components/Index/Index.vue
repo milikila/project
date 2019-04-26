@@ -70,7 +70,6 @@ export default {
     },
     searchPage () {
       this.$router.push({path: '/raiseUse'})
-      // this.$router.push({path: '/usersetting'})
     }
   }
 }
@@ -139,14 +138,9 @@ export default {
   display: flex;
   width: 100%;
   justify-content: space-around;
-  /* height: 500px;
-  border: 2px solid #ccc; */
 }
 .Index-content-show-list {
   width: 100%;
-}
-.Index-content-list-name {
-  /* width: 100px; */
 }
 .Index-content-list-all-help {
   width: 100%;

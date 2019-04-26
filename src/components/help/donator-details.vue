@@ -31,7 +31,6 @@ export default {
   display: flex;
   top: 3.9rem;
   position: absolute;
-  /* justify-content: center; */
   z-index: 100;
   flex-direction: column;
   background: #fff;

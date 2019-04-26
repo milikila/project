@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <!-- <IndexContent></IndexContent> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-// import IndexContent from '@/components/Index/index'
 export default {
   data () {
     return {
@@ -37,9 +35,6 @@ export default {
     window.addEventListener('beforeunload', () => {
       localStorage.setItem('store', JSON.stringify(this.$store.state))
     })
-    // window.addEventListener('beforeunload', () => {
-    //   localStorage.removeItem('token')
-    // })
   }
 }
 </script>

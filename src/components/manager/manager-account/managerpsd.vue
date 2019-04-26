@@ -16,7 +16,6 @@
     <div class="confirm" v-show="showConfirm">
       <div class="confirm-contents ">
         <h1>请输入要修改的用户名</h1>
-        <!-- <label class="managepsd-content-info-name">用户名称&nbsp;</label> -->
         <Input type="text" class="confirm-contents-text" v-model="changeUsername"/>
         <Button class="managepsd-content-info-sucess"   @click="UnshowConfirm()" type="primary">保存</Button>
       </div>
