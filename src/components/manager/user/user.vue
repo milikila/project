@@ -66,7 +66,7 @@ export default {
                     this.remove(params.index)
                   }
                 }
-              }, 'Delete')
+              }, '解除禁用')
             ])
           }
         }

@@ -10,10 +10,10 @@
     <div class="donator-contents">
       <div class="donator-contents-title">请输入募捐项目名称</div>
       <Input class="donator-contents-list" v-model="projectName" placeholder="Enter something..." clearable />
-    </div>。
-    <div class="donator-contents">
+    </div>
+    <div class="donator-contents donator-contents-another">
       <div class="donator-contents-title">请描述募捐项目信息：</div>
-      <textarea  class="donator-contents-list" v-model="textarea"></textarea>
+      <textarea  class="donator-contents-list textarea" v-model="textarea"></textarea>
     </div>
     <div class="btn"><Button type="primary" @click="list()" long>提交</Button></div>
   </div>
@@ -88,6 +88,9 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.donator-contents-another {
+  height: 200px;
+}
 .donator-contents-title {
   padding-top: 5%;
   width: 100%;
@@ -95,9 +98,12 @@ export default {
 .donator-contents-list {
   width: 100%;
 }
+/* .textarea {
+  height: 300px;
+} */
 textarea {
   overflow: auto;
-  height: 100px;
+  height: 150px;
 }
 .btn {
   width: 40%;

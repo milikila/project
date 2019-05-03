@@ -15,13 +15,13 @@
               <Icon type="ios-people"/>用户管理
             </template>
             <MenuItem name="受捐者账户管理" to="/user">受捐者账户管理</MenuItem>
-            <MenuItem name="捐助者账户管理" to="/helpUser">捐助者账户管理</MenuItem>
+            <!-- <MenuItem name="捐助者账户管理" to="/helpUser">捐助者账户管理</MenuItem> -->
           </Submenu>
-          <Submenu name="募捐种类管理">
+          <Submenu name="募捐项目管理">
             <template slot="title">
               <Icon type="ios-happy-outline"/>募捐种类管理
             </template>
-            <MenuItem name="募捐种类管理" to="/RaiseType">募捐种类管理</MenuItem>
+            <MenuItem name="募捐项目管理" to="/RaiseType">募捐种类管理</MenuItem>
           </Submenu>
           <Submenu name="募捐审核">
             <template slot="title">

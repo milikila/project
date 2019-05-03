@@ -86,6 +86,8 @@
 </template>
 <script>
 import Manage from '@/components/manager/manage-index'
+import axios from 'axios'
+// import { setInterval } from 'timers'
 export default {
   data () {
     return {
@@ -132,8 +134,19 @@ export default {
   },
   created () {
     this.title = this.$store.state.LoginTitle
+    this.postUserList()
   },
   methods: {
+    postUserList () {
+      axios.post('http://localhost:80/user/getUsers').then((response) => {
+        console.log('接口返回成功')
+      }).catch((response) => {
+        console.log('接口返回错误')
+      })
+      console.log('3')
+    },
+    registerList () {
+    },
     showChangePage () {
       this.changeUserPsd = !this.changeUserPsd
     },
@@ -172,7 +185,9 @@ export default {
       } else {
       }
     },
-    register () {}
+    register () {
+      this.registerList()
+    }
   }
 }
 </script>

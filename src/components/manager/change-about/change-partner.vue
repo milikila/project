@@ -3,12 +3,12 @@
     <div class=""></div>
     <div class="change-partner-editor" v-show="showEditor">
       <quill-editor
-      v-model="content"
-      ref="myQuillEditor"
-      :options="editorOption"
-      @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-      @change="onEditorChange($event)">
-    </quill-editor>
+        v-model="content"
+        ref="myQuillEditor"
+        :options="editorOption"
+        @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
+        @change="onEditorChange($event)">
+      </quill-editor>
   </div>
   <Button class="change-btn" type="primary" @click="sucess()">保存</Button>
 </div>
