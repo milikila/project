@@ -11,7 +11,14 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "generate-client": "node_modules/.bin/nswag swagger2tsclient /input:%npm_package_devConfig_genClient_input% /output:%npm_package_devConfig_genClient_output%"
+  },
+  "devConfig": {
+    "genClient": {
+      "input": "https://localhost:44333/swagger/v1/swagger.json",
+      "output": "src/api-client/client.ts"
+    }
   },
   "dependencies": {
     "echarts": "^4.2.1",
