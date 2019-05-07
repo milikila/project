@@ -4,17 +4,17 @@
     <div class="manage-index">
       <Row class="Row">
         <Menu :theme="theme3" accordion>
-          <Submenu name="账户">
+          <!-- <Submenu name="账户">
             <template slot="title">
               <Icon type="ios-create-outline" />账户管理
             </template>
             <MenuItem name="用户名密码" to="/managerPsd">用户名密码</MenuItem>
-          </Submenu>
+          </Submenu> -->
           <Submenu name="用户管理">
             <template slot="title">
               <Icon type="ios-people"/>用户管理
             </template>
-            <MenuItem name="受捐者账户管理" to="/user">受捐者账户管理</MenuItem>
+            <MenuItem name="账户管理" to="/user">账户管理</MenuItem>
             <!-- <MenuItem name="捐助者账户管理" to="/helpUser">捐助者账户管理</MenuItem> -->
           </Submenu>
           <Submenu name="募捐项目管理">

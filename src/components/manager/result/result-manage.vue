@@ -1,9 +1,5 @@
 <template>
   <div id="result-manage">
-    <!-- <div class="result-manage-add">
-      <Button type="info">增加</Button>
-      <Input search enter-button placeholder="Enter something..." />
-    </div> -->
     <Table border ref="selection" :columns="columns7" :data="data6"></Table>
   </div>
 </template>

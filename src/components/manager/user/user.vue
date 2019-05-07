@@ -2,6 +2,7 @@
   <Table border ref="selection" :columns="columns7" :data="data6"></Table>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -38,21 +39,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.show(params.index)
-                  }
-                }
-              }, '详细信息'),
-              h('Button', {
-                props: {
-                  type: 'primary',
-                  size: 'small'
-                },
-                style: {
-                  marginRight: '5px'
-                },
-                on: {
-                  click: () => {
-                    this.show(params.index)
+                    this.disableUser(params.index)
                   }
                 }
               }, '禁用'),
@@ -63,7 +50,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.remove(params.index)
+                    this.noDisableNoUser(params.index)
                   }
                 }
               }, '解除禁用')
@@ -71,31 +58,46 @@ export default {
           }
         }
       ],
-      data6: [
-        {
-          name: 'John Brown'
-        },
-        {
-          name: 'Jim Green'
-        },
-        {
-          name: 'Joe Black'
-        },
-        {
-          name: 'Jon Snow'
-        }
-      ]
+      data6: []
     }
   },
+  created () {
+    this.userList()
+  },
   methods: {
-    show (index) { // 显示用户的信息
-      this.$Modal.info({
-        title: 'User Info',
-        content: `Name：${this.data6[index].name}`
+    userList () {
+      axios.post('http://localhost/user/getUsers').then((res) => {
+        if (res.data.message === 'true') {
+          let arrayList = []
+          // console.log(res.data.data)
+          res.data.data.forEach((item, index, arr) => {
+            arrayList.push({'name': item.username})
+          })
+          // console.log('2', arrayList)
+          this.data6 = arrayList
+        }
+      }).catch((res) => {
+        console.log('接口返回错误')
       })
     },
-    remove (index) {
-      // this.data6.splice(index, 1)
+    disableUser (index) {
+      console.log(index, this.data6[index].name)
+      axios.post('http://localhost/user/disableUser', {
+        username: this.data6[index].name
+      }).then((res) => {
+        console.log('1')
+      }).catch((res) => {
+        console.log('接口返回错误')
+      })
+    },
+    noDisableNoUser (index) {
+      axios.post('http://localhost/user/noDisableNoUser', {
+        username: this.data6[index].name
+      }).then((res) => {
+        console.log('1')
+      }).catch((res) => {
+        console.log('接口返回错误')
+      })
     }
   }
 }
