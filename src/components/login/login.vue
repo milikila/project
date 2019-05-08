@@ -38,7 +38,7 @@
           <div class="login-content-info-list">
             <label class="login-info-username">用户密码&nbsp;</label>
             <input type="password" placeholder="设置密码" class="inputName" v-model="password">
-            <!-- <label class="login-content-info-list-tip"></label> -->
+            <label class="login-content-info-list-tip">{{passwordTip}}</label>
           </div>
           <div class="login-content-info-list" v-show="confirmPassword">
             <label class="login-info-username">确认密码&nbsp;</label>
@@ -47,7 +47,8 @@
           </div>
           <div class="login-content-info-list" v-show="confirmPassword">
             <label class="login-info-username">年龄</label>
-            <InputNumber class="inputName"  v-model="value4"></InputNumber>
+            <input type="text" placeholder="输入年龄" class="inputName" v-model="age">
+            <!-- <InputNumber class="inputName"  v-model="age"></InputNumber> -->
           </div>
           <div class="login-content-info-list" v-show="confirmPassword">
             <label class="login-info-username">地&nbsp;&nbsp;&nbsp;&nbsp;址&nbsp;&nbsp;</label>
@@ -101,7 +102,7 @@ export default {
       showBtn: false, // 是否显示登录注册按钮
       confirmPassword: false, // 确认密码框是否显示
       IndexImg: './static/img/logo.png',
-      value4: 21,
+      age: '21',
       picked: '', // 单选框的值
       changeUserPsd: false, // 修改密码框是否显示
       username: '', // 用户名称
@@ -110,8 +111,8 @@ export default {
       changeAddress: '', // 修改地址
       changeAge: '', // 修改年龄
       usernameTip: '', // 提示内容
+      passwordTip: '', // 管理员登录提示
       confirmPsdTip: '', // 确认密码提示
-      // tipShow: false,
       btnshow: false, // 按钮显示隐藏
       address: '',
       changeUsername: '', // 改变用户名称
@@ -190,7 +191,8 @@ export default {
         {username: this.username,
           password: this.password
         }).then((res) => {
-        if (this.picked === '2' && this.username === 'admin' && this.password === '123456') {
+          // console.log(res.data.message)
+          if (this.picked === '2' && this.username === 'admin' && this.password === '123456') {
           this.$router.push({path: '/manage'})
           this.title = this.username
           this.managerUserPad.username = this.username
@@ -198,38 +200,34 @@ export default {
           this.showLoginBtn = !this.showLoginBtn
           this.$store.commit('updateUsernamePassowrd', this.managerUserPad)
           this.btnshow = true
-        } else {
-          this.title = this.username
-          this.showLoginBtn = !this.showLoginBtn
+        } else { // 当用户名密码出错时，不跳转页面
+          this.usernameTip = res.data.message
+          this.passwordTip = '用户名a开头，密码为数字'
+          this.showLoginBtn = true
         }
-        console.log('接口返回成功')
       }).catch((response) => {
         console.log('接口返回错误')
       })
     },
     register () { // 注册功能
-      if (this.userListSelect.includes(this.username)) {
-        this.usernameTip = '与其他用户重复，请重新输入'
-        this.username = ''
-      } else {
-        if (this.picked === '1') {
-          axios.post('http://localhost/user/register',
-            {username: this.username,
-              password: this.password,
-              age: this.value4,
-              address: this.address,
-              type: this.picked}).then((res) => {
-            if (res.data.message === 'true') {
-              this.$router.push({ path: '/' })
-              this.title = this.username
-              this.showLoginBtn= false
-              this.$store.commit('updateLoginTitle', this.LoginTitle)
-              console.log('接口返回成功')
-            }
-          }).catch((response) => {
-            console.log('接口返回错误')
-          })
-        }
+    console.log(this.username, this.password, this.address, this.age,this.picked)
+      if (this.picked === '1') {
+        axios.post('http://localhost/user/register',
+          {username: this.username,
+            password: this.password,
+            age: this.age,
+            address: this.address,
+            type: this.picked}).then((res) => {
+          if (res.data.message === 'true') {
+            this.$router.push({ path: '/' })
+            this.title = this.username
+            this.showLoginBtn= false
+            this.$store.commit('updateLoginTitle', this.LoginTitle)
+            console.log('接口返回成功')
+          }
+        }).catch((response) => {
+          console.log('接口返回错误')
+        })
       }
     }
   }
