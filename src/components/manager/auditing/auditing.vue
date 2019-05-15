@@ -1,9 +1,13 @@
 <template>
   <div class="auditing">
     <div class="auditing-contents">
-    <Select v-model="contents" style="width:200px">
-      <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
-    </Select>
+      <Select v-model="contents" style="width:200px">
+        <Option v-for="item in list" :value="item.value" @click.native="selectOption(item.value)" :key="item.value">{{ item.label }}</Option>
+      </Select>
+    </div>
+    <div class="aduiting-list">
+      <auditingSucess v-show="showSucessContent"></auditingSucess>
+      <auditingFail v-show="showFailContent"></auditingFail>
     </div>
   </div>
 </template>
@@ -11,32 +15,38 @@
 <script>
 import auditingFail from '@/components/manager/auditing/auditing-fail.vue'
 import auditingSucess from '@/components/manager/auditing/auditing-sucess.vue'
-import auditingLoading from '@/components/manager/auditing/auditing-loading.vue'
 export default {
   data () {
     return {
       contents: '',
+      showSucessContent: false,
+      showFailContent: false,
       list: [
         {
-          label: '项目审核',
-          value: '项目审核'
+          label: '审核通过',
+          value: '审核通过'
         },
         {
-          label: '申请募捐审核',
-          value: '申请募捐审核'
+          label: '审核未通过',
+          value: '审核未通过'
         }
       ]
     }
   },
   methods: {
-    showContentsList () {
-      this.disable = true
+    selectOption (item) {
+      if (item === '审核通过') {
+        this.showSucessContent = true
+        this.showFailContent = false
+      } else {
+        this.showSucessContent = false
+        this.showFailContent = true
+      }
     }
   },
   components: {
     'AuditingFail': auditingFail,
-    'AuditingSucess': auditingSucess,
-    'AuditingLoading': auditingLoading
+    'AuditingSucess': auditingSucess
   }
 }
 </script>
@@ -44,12 +54,11 @@ export default {
 <style>
  .auditing {
   width: 100%;
-  /* height: 70%; */
   top: 10%;
   position: relative;
 }
 .auditing-contents {
-  height: 50%;
+  height: 10%;
   width: 70%;
   display: flex;
   flex-direction: column;
@@ -69,7 +78,6 @@ export default {
   width: 60%;
   height: 50px;
   display:flex;
-  /* margin-top: 0.5rem; */
   border: solid #ccc 1px;
 }
 .contents-list:last-child {
@@ -91,5 +99,11 @@ export default {
 }
 .contents {
   margin-top: 2%;
+}
+.aduiting-list {
+  position: absolute;
+  height: auto;
+  width: 100%;
+
 }
 </style>

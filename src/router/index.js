@@ -11,6 +11,7 @@ import DonatorDetails from '@/components/help/donator-details'
 import IndexContent from '@/components/Index/index'
 import ManagerPsd from '@/components/manager/manager-account/managerpsd'
 import RaiseType from '@/components/manager/raiseType/raise-type'
+import addraiseType from '@/components/manager/raiseType/addraisetype'
 import Auditing from '@/components/manager/auditing/auditing'
 import usersetting from '@/components/help/usersetting'
 import raiseUse from '@/components/help/raise-use'
@@ -18,6 +19,7 @@ import changeRelation from '@/components/manager/change-about/change-relation'
 import changePartner from '@/components/manager/change-about/change-partner'
 import resultTotal from '@/components/manager/result/result-total'
 import resultManage from '@/components/manager/result/result-manage'
+import auditingLoading from '@/components/manager/auditing/auditing-loading.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -91,8 +93,16 @@ export default new Router({
             component: RaiseType
           },
           {
+            path: '/addraiseType',
+            component: addraiseType
+          },
+          {
             path: '/auditing',
             component: Auditing
+          },
+          {
+            path: '/auditingLoading',
+            component: auditingLoading
           }
           ]
         }

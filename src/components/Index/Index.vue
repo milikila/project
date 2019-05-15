@@ -5,7 +5,7 @@
       <Button class="yourself" @click="join()" type="primary">发起募捐</Button>
       <Input search enter-button="Search" class="Index-search-name" placeholder="Enter something..."  @on-search="searchPage()"/>
     </div>
-    <!-- <Carousel class="banner" autoplay v-model="value2" loop>
+    <Carousel class="banner" autoplay v-model="value2" loop>
       <CarouselItem>
         <div class="demo-carousel"><img class="demo-carousel-img" :src="bannerImg1"></div>
       </CarouselItem>
@@ -15,26 +15,30 @@
       <CarouselItem>
         <div class="demo-carousel"><img class="demo-carousel-img" :src="bannerImg3"></div>
       </CarouselItem>
-    </Carousel> -->
+    </Carousel>
     <div class="Index-content">
       <div class="Index-content-title"  v-for="(item,index) in contents" :key="index">
-        <div @click="chooseList(index)">{{item}}</div>
+        <div>{{item}}</div>
       </div>
     </div>
     <div class="Index-content-list">
       <div class="Index-content-list-all" v-if="showAll">
         <div class="Index-content-show-list">
-          <div v-for="(contentList, indexs) in jsonp" :key="indexs" class="Index-content-lists" @click="IndexDetails()">
+          <div class="Index-title">项目列表：</div>
+          <div v-for="(contentList, indexs) in jsonp" :key="indexs" class="Index-content-lists" @click="IndexDetails(contentList.content,contentList.id,indexs)">
+            <div style="margin-right: 10px" class="Index-content-list-name">{{indexs+1}}</div>
             <div class="Index-content-list-name">{{contentList.name}}</div>
             <div class="Index-content-list-value">{{contentList.value}}</div>
           </div>
         </div>
       </div>
     </div>
+    <usersetting :projectId="projectId" v-show="showContent"></usersetting>
   </div>
 </template>
-
 <script>
+import axios from 'axios'
+import usersetting from '@/components/help/usersetting'
 export default {
   data () {
     return {
@@ -43,24 +47,43 @@ export default {
       bannerImg2: './static/img/banner/2.jpg',
       bannerImg3: './static/img/banner/3.jpg',
       contents: [],
+      showContent: false,
       showAll: true,
       indexNumber: -1,
       title: '',
-      showHelp: false,
+      projectId: '',
+      showList: '',
       showAccept: false,
-      jsonp: [{
-        'name': '捐赠',
-        'value': 'adfk;afkal;fa'
-      },
-      {
-        'name': '山区捐赠',
-        'value': 'adfk;afkal;fa'
-      }]
+      jsonp: []
     }
   },
+  created () {
+    this.projectList()
+  },
+  components: {
+    'usersetting': usersetting
+  },
   methods: {
-    IndexDetails () {
-      this.$router.push({path: '/usersetting'})
+    projectList () {
+      axios.post('http://localhost/project/getProjects').then((res) => {
+        this.jsonp = res.data.data
+        console.log(this.jsonp)
+      }).catch((res) => {
+        console.log('接口返回错误')
+      })
+    },
+    projectListId () {
+      axios.post('http://localhost/project/getProject').then((res) => {
+        console.log('获得数据', this.jsonp)
+      }).catch((res) => {
+        console.log('接口返回错误')
+      })
+    },
+    IndexDetails (item, id, indexs) {
+      this.indexNumber = indexs
+      this.showContent = true
+      this.projectId = id
+      console.log(this.projectId)
     },
     check () {
       this.$router.push({path: '/donatordetails'})
@@ -130,6 +153,11 @@ export default {
 }
 .Index-content-list {
   width: 90%;
+  /* height: 50px; */
+}
+.Index-title {
+  font-size: 20px;
+  font-weight: bold;
 }
 .Index-content-list-all {
   width: 100%;
@@ -137,7 +165,8 @@ export default {
 .Index-content-lists {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  height: 50px;
+  /* justify-content: space-around; */
 }
 .Index-content-show-list {
   width: 100%;

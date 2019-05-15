@@ -7,6 +7,7 @@ let state = {
     username: '',
     passoword: ''
   },
+  userid: '',
   allowBack: true,
   about: {
     tel: '',
@@ -36,6 +37,10 @@ let mutations = {
   },
   updateLoginTitle (state, data) {
     state.LoginTitle = data
+  },
+  updateUserid (state, data) {
+    state.userid = data
+    console.log(state.userid)
   }
   // [types.UPDATE_APPSETTING] (state, { allowBack }) { // 真正改变allowBack的mutation
   //   state.allowBack = allowBack

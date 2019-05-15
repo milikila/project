@@ -95,6 +95,7 @@
 <script>
 import Manage from '@/components/manager/manage-index'
 import axios from 'axios'
+import qs from 'qs'
 // import { setInterval } from 'timers'
 export default {
   data () {
@@ -125,7 +126,8 @@ export default {
       managerUserPad: {
         username: '',
         password: ''
-      }
+      },
+      userid: ''
     }
   },
   watch: {
@@ -152,16 +154,27 @@ export default {
   },
   methods: {
     userList () { // 获取用户列表
-      axios.post('http://localhost/user/getUsers').then((res) => {
+    },
+    showChangePage () { // 修改中的保存按钮功能
+      axios.post('http://localhost/user/updateUser',
+        qs.stringify({
+          username: this.changeUsername,
+          password: this.changepassword,
+          age: this.changeAge,
+          address: this.changeAddress,
+          id: this.$store.state.userid,
+          type: this.picked
+        })).then((res) => {
         if (res.data.message === 'true') {
-          this.userListSelect = res.data.data
-          console.log(this.userListSelect)
+          this.$router.push({ path: '/' })
+          this.title = this.username
+          this.showLoginBtn = false
+          this.$store.commit('updateLoginTitle', this.LoginTitle)
+          // console.log('接口返回成功')
         }
       }).catch((res) => {
         console.log('接口返回错误')
       })
-    },
-    showChangePage () { // 修改中的保存按钮功能
       this.changeUserPsd = !this.changeUserPsd
     },
     exitlogin () { // 退出按钮功能
@@ -188,16 +201,18 @@ export default {
     },
     loginPage () { // 用户登录功能
       axios.post('http://localhost/user/login',
-        {username: this.username,
+        qs.stringify({username: this.username,
           password: this.password
-        }).then((res) => {
-          // console.log(res.data.message)
-          if (this.picked === '2' && this.username === 'admin' && this.password === '123456') {
+        })).then((res) => {
+        // console.log(res.data.message)
+        if (this.picked === '2' && this.username === 'admin' && this.password === '123456') {
           this.$router.push({path: '/manage'})
           this.title = this.username
           this.managerUserPad.username = this.username
           this.managerUserPad.password = this.password
           this.showLoginBtn = !this.showLoginBtn
+          this.userid = res.data.data.id
+          this.$store.commit('updateUserid', this.userid)
           this.$store.commit('updateUsernamePassowrd', this.managerUserPad)
           this.btnshow = true
         } else { // 当用户名密码出错时，不跳转页面
@@ -205,27 +220,39 @@ export default {
           this.passwordTip = '用户名a开头，密码为数字'
           this.showLoginBtn = true
         }
-      }).catch((response) => {
+        if (this.picked === '1') {
+          this.$router.push({path: '/'})
+          this.userid = res.data.data.id
+          this.title = this.username
+          this.managerUserPad.username = this.username
+          this.managerUserPad.password = this.password
+          this.showLoginBtn = !this.showLoginBtn
+          this.$store.commit('updateUserid', this.userid)
+          this.$store.commit('updateUsernamePassowrd', this.managerUserPad)
+        }
+      }).catch((res) => {
         console.log('接口返回错误')
       })
     },
     register () { // 注册功能
-    console.log(this.username, this.password, this.address, this.age,this.picked)
       if (this.picked === '1') {
+        console.log(this.username, this.password, this.address, this.age, this.picked)
         axios.post('http://localhost/user/register',
-          {username: this.username,
+          qs.stringify({
+            username: this.username,
             password: this.password,
             age: this.age,
             address: this.address,
-            type: this.picked}).then((res) => {
+            type: this.picked
+          })).then((res) => {
           if (res.data.message === 'true') {
             this.$router.push({ path: '/' })
             this.title = this.username
-            this.showLoginBtn= false
+            this.showLoginBtn = false
             this.$store.commit('updateLoginTitle', this.LoginTitle)
-            console.log('接口返回成功')
+            // console.log('接口返回成功')
           }
-        }).catch((response) => {
+        }).catch((res) => {
           console.log('接口返回错误')
         })
       }
@@ -275,7 +302,6 @@ export default {
   margin-left: 5%;
 }
 .header-click {
-  /* background: #f00; */
   width: 20%;
   height: 4rem;
 }
@@ -315,7 +341,7 @@ export default {
   height: 545px;
   position: relative;
   z-index: 1000000;
-  background: rgba(0,0,0,0.8)
+  background: rgba(0,0,0,1)
 }
 .login-content-info {
   width: 100%;

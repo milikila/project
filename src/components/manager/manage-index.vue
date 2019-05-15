@@ -19,15 +19,17 @@
           </Submenu>
           <Submenu name="募捐项目管理">
             <template slot="title">
-              <Icon type="ios-happy-outline"/>募捐种类管理
+              <Icon type="ios-happy-outline"/>募捐项目管理
             </template>
-            <MenuItem name="募捐项目管理" to="/RaiseType">募捐种类管理</MenuItem>
+            <MenuItem name="募捐项目管理" to="/RaiseType">募捐项目管理</MenuItem>
+            <MenuItem name="募捐项目类型增加" to="/addraiseType">募捐项目类型增加</MenuItem>
           </Submenu>
           <Submenu name="募捐审核">
             <template slot="title">
               <Icon type="ios-heart"/>募捐审核
             </template>
-            <MenuItem name="募捐审核" to="/auditing">募捐审核</MenuItem>
+            <MenuItem name="募捐审核" to="/auditingLoading">募捐审核</MenuItem>
+            <MenuItem name="募捐审核结果" to="/auditing">募捐审核结果</MenuItem>
           </Submenu>
           <Submenu name="募捐结果管理">
             <template slot="title">

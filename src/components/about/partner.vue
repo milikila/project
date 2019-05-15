@@ -3,6 +3,7 @@
     <div class="relation-about-contents">
       <div class="relation-title">我们的伙伴</div>
       <div class="relation-contents">
+        <div class=""></div>
       </div>
     </div>
   </div>

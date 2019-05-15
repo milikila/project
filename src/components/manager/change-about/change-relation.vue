@@ -52,7 +52,7 @@ export default {
     this.tel = this.$store.state.about.tel
     this.address = this.$store.state.about.address
     this.email = this.$store.state.about.email
-    console.log(this.tel)
+    // console.log(this.tel)
   },
   methods: {
     onEditorBlur () { // 失去焦点事件
