@@ -2,13 +2,18 @@
   <div id="raiseMoney">
     <div class="raiseMoney-add">
       <Button type="info" @click="addInfo()">增加</Button>
-      <Input search enter-button class="raiseMoney-search" placeholder="Enter something..." />
+      <Button type="info" @click="exportData()"><Icon type="ios-download-outline"></Icon>导出</Button>
     </div>
-    <Table border ref="selection" :columns="columns7" :data="data6"></Table>
+    <Table class="table" border ref="table" :columns="columns7" :data="data6"></Table>
+    <div style="margin: 10px;overflow: hidden">
+      <div style="float: right;">
+        <Page :total="data6.length" :current="1" @on-change="changePage"></Page>
+      </div>
+    </div>
     <div class="raiseMoney-confirm" v-show="showAlert">
       <div class="donator-contents">
         <div class="donator-contents-title">请输入募捐项目类型:</div>
-       <Select v-model="model1" class="donator-contents-list"  @on-change="selectOption">
+       <Select v-model="model1" class="donator-contents-list">
         <Option v-for="(item, index) in projectList" :value="item.id" :key="index">{{ item.typename }}</Option>
         </Select>
       </div>
@@ -64,99 +69,15 @@ export default {
       columns7: [
         {
           title: '名称',
-          key: '名称',
-          width: 300,
-          render: (h, params) => {
-            return h('div', [
-              h('Icon', {
-                props: {
-                  type: 'person'
-                }
-              }),
-              h('strong', params.row.name)
-            ])
-          }
+          'sortable': true,
+          width: 150,
+          'key': 'name'
         },
         {
-          title: '类型',
-          key: '类型',
-          width: 300,
-          render: (h, params) => {
-            return h('div', [
-              h('Icon', {
-                props: {
-                  type: 'person'
-                },
-                style: {
-                  marginRight: '5px'
-                }
-              }),
-              h('strong', params.row.name),
-              h('Button', {
-                props: {
-                  type: 'primary',
-                  size: 'small'
-                },
-                style: {
-                  marginRight: '5px'
-                },
-                on: {
-                  click: () => {
-                    this.show(params.index)
-                  }
-                }
-              }, '修改'),
-              h('Button', {
-                props: {
-                  type: 'primary',
-                  size: 'small'
-                },
-                style: {
-                  marginRight: '5px'
-                },
-                on: {
-                  click: () => {
-                    this.show(params.index)
-                  }
-                }
-              }, '增加')
-            ])
-          }
-        },
-        {
-          title: 'Action',
-          key: 'action',
-          width: 200,
-          align: 'center',
-          render: (h, params) => {
-            return h('div', [
-              h('Button', {
-                props: {
-                  type: 'primary',
-                  size: 'small'
-                },
-                style: {
-                  marginRight: '5px'
-                },
-                on: {
-                  click: () => {
-                    this.show(params.index)
-                  }
-                }
-              }, '修改'),
-              h('Button', {
-                props: {
-                  type: 'error',
-                  size: 'small'
-                },
-                on: {
-                  click: () => {
-                    this.remove(params.index)
-                  }
-                }
-              }, '删除')
-            ])
-          }
+          title: '项目介绍',
+          width: 400,
+          'sortable': true,
+          'key': 'content'
         }
       ],
       data6: []
@@ -167,36 +88,31 @@ export default {
     this.projectListId()
   },
   methods: {
-    selectOption (e) {
-      console.log(e.target.key)
-      console.log(this.userid)
-    },
     projectListId () {
       axios.post('http://localhost/project/getProjects').then((res) => {
         if (res.data.message === 'true') {
           let arrayList = []
-          res.data.forEach((item, index, arr) => {
+          res.data.data.forEach((item, index, arr) => {
             arrayList.push({ 'name': item.name, 'number': item.number, 'content': item.content, 'endDate': item.endDate, 'startDate': item.startDate })
-            console.log(arrayList)
           })
           this.data6 = arrayList
-          console.log(this.data6)
+          return res
         }
       }).catch((res) => {
-        // console.log('接口返回错误')
+        this.$Message.info('接口错误')
       })
     },
     donatorProject () {
       axios.post('http://localhost/type/getTypes').then((res) => {
-        console.log(res.data.data)
-        this.projectList = res.data.data
+        if (res.data.message === 'true') {
+          this.projectList = res.data.data
+        }
       }).catch((res) => {
-        console.log('接口返回错误')
+        this.$Message.info('接口错误')
       })
     },
     handleChange (daterange) {
       this.dataValue = daterange
-      console.log(this.dataValue)
       for (var i = 0; i < this.dataValue.length - 1; i++) {
         this.starttime = this.dataValue[i]
         this.endtime = this.dataValue[i + 1]
@@ -209,33 +125,42 @@ export default {
     donatorList () {
       axios.post('http://localhost/project/saveProject',
         qs.stringify({
+          checkId: '',
           name: this.projectName,
           number: this.projectNumber,
           userId: parseInt(this.userid),
-          // content: this.textarea,
-          // startDate: this.startime,
-          // endDate: this.endtime,
-          // type_id: parseInt(this.model1)
+          content: this.textarea,
+          endDate: this.endtime,
+          startDate: this.starttime,
+          type_id: parseInt(this.model1)
         })).then((res) => {
-        console.log(res.data.message)
+        if (res.data.message === 'true') {
+          this.showAlert = !this.showAlert
+          this.projectListId()
+        }
       }).catch((res) => {
-        console.log('接口返回错误')
+        this.$Message.info('接口错误')
       })
-    },
-    remove (index) {
     },
     addInfo () {
       this.showAlert = true
     },
-    show (index) {
-    },
     confirm () {
       this.showAlert = !this.showAlert
+    },
+    exportData () {
+      this.$refs.table.exportCsv({
+        filename: 'The original data',
+        columns: this.columns7,
+        data: this.data6
+      })
+    },
+    changePage () {
+      this.tableData1 = this.data6;
     }
   }
 }
 </script>
-
 <style>
 .raiseMoney {
   width: 100%;
@@ -258,8 +183,9 @@ export default {
 }
 .raiseMoney-add {
   display: flex;
-  justify-content: space-around;
   margin: 10px 0;
+  width: 30%;
+  justify-content: space-around;;
 }
 .raiseMoney-confirm-contents {
   background: #fff;

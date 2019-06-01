@@ -1,35 +1,47 @@
 <template>
   <div class="histogram">
-    <ve-histogram :data="chartData" :settings="chartSettings"></ve-histogram>
+    <ve-histogram :data="chartData" width="800px" height="400px"></ve-histogram>
   </div>
 </template>
-
 <script>
+import axios from 'axios'
 export default {
   data () {
-    this.chartSettings = {
-      metrics: ['访问用户', '下单用户'],
-      dimension: ['日期']
-    }
     return {
       chartData: {
-        columns: ['日期', '访问用户', '下单用户', '下单率'],
-        rows: [
-          { '日期': '1/1', '访问用户': 1393, '下单用户': 1093, '下单率': 0.32 },
-          { '日期': '1/2', '访问用户': 3530, '下单用户': 3230, '下单率': 0.26 },
-          { '日期': '1/3', '访问用户': 2923, '下单用户': 2623, '下单率': 0.76 },
-          { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
-          { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
-          { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
-        ]
+        columns: ['名称', '数量'],
+        rows: []
       }
+    }
+  },
+  created () {
+    this.getData()
+  },
+  methods: {
+    getData () {
+      axios.post('http://localhost/statistics/getData').then((res) => {
+        if (res.data.message) {
+          let arryList = []
+          let totalList = []
+          for (var i = 0; i < res.data.data.names.length; i++) {
+            arryList.push(res.data.data.names[i])
+          }
+          for (var j = 0; j < res.data.data.totals.length; j++) {
+            arryList.push(res.data.data.totals[j])
+          }
+          for (var z = 0; z < arryList.length / 2; z++) {
+            totalList.push({'名称': arryList[z], '数量': arryList[arryList.length / 2 + z]})
+          }
+          this.chartData.rows = totalList
+        } else {
+          this.$Message.info('接口成功，但返回值出错')
+        }
+      }).catch((res) => {
+        this.$Message.info('接口错误')
+      })
     }
   }
 }
 </script>
 <style scoped>
-/* .histogram {
-  width: 80%;
-  height: 100%;
-} */
 </style>

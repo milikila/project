@@ -1,6 +1,11 @@
 <template>
 <div>
   <Table border ref="selection" :columns="columns7" :data="data6"></Table>
+  <div style="margin: 10px;overflow: hidden">
+      <div style="float: right;">
+        <Page :total="data6.length" :current="1" @on-change="changePage"></Page>
+      </div>
+    </div>
   <div class="login-content"  v-show="changeUserPsd">
     <div class="login-confirm-contents">
       <label class="login-label">修改用户名</label>
@@ -158,11 +163,10 @@ export default {
       this.changeUserList()
     },
     userListSee (index) {
-      this.showUserList = true
-      this.changeAddress = this.data6[index].address
-      this.changeAge = this.data6[index].age
-      this.changePassword = this.data6[index].password
-      this.changeUsername = this.data6[index].name
+      this.$Modal.info({
+          title: 'User Info',
+          content: `Name：${this.data6[index].name}<br>Age：${this.data6[index].age}<br>Address：${this.data6[index].address}`
+      })
     },
     changeUserList (index) {
       axios.post('http://localhost/user/updateUser',
@@ -177,44 +181,46 @@ export default {
         if (res.data.message === 'true') {
           this.changeUserPsd = false
           this.userList()
+          this.$Message.info('接口返回成功')
         }
       }).catch((res) => {
-        console.log('接口返回错误')
+        this.$Message.info('接口返回失败')
       })
     },
     userList () {
       axios.post('http://localhost/user/getUsers').then((res) => {
         if (res.data.message === 'true') {
           let arrayList = []
-          // console.log(res.data.data)
           res.data.data.forEach((item, index, arr) => {
             arrayList.push({ 'name': item.username, 'id': item.id, 'password': item.password, 'address': item.address, 'age': item.age })
           })
-          // console.log('2', arrayList)
           this.data6 = arrayList
+          this.$Message.info('接口返回成功')
         }
       }).catch((res) => {
-        console.log('接口返回错误')
+        this.$Message.info('接口返回失败')
       })
     },
     disableUser (index) {
-      console.log(index, this.data6[index])
       axios.post('http://localhost/user/disableUser', qs.stringify({
         id: this.data6[index].id
       })).then((res) => {
-        console.log('1')
+        this.$Message.info('接口返回成功')
       }).catch((res) => {
-        console.log('接口返回错误')
+        this.$Message.info('接口返回失败')
       })
     },
     noDisableNoUser (index) {
       axios.post('http://localhost/user/noDisableNoUser', qs.stringify({
         id: this.data6[index].id
       })).then((res) => {
-        console.log('1')
+        this.$Message.info('接口返回成功')
       }).catch((res) => {
-        console.log('接口返回错误')
+        this.$Message.info('接口返回失败')
       })
+    },
+    changePage () {
+      this.tableData1 = this.data6
     }
   }
 }

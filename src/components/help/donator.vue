@@ -5,25 +5,25 @@
     </div>
     <div class="donator-contents">
       <div class="donator-contents-title">请输入募捐项目类型:</div>
-       <Select v-model="model1" class="donator-contents-list"  @on-change="selectOption">
+       <Select v-model="model1" class="donator-contents-list" style="border: 2px solid #dcdee2">
         <Option v-for="(item, index) in projectList" :value="item.id" :key="index">{{ item.typename }}</Option>
-        </Select>
+      </Select>
     </div>
     <div class="donator-contents">
       <div class="donator-contents-title">请输入募捐项目名称</div>
-      <Input class="donator-contents-list" v-model="projectName" placeholder="Enter something..." clearable />
+      <Input class="donator-contents-list" style="border: 2px solid #dcdee2" v-model="projectName" placeholder="Enter something..." clearable />
     </div>
     <div class="donator-contents">
       <div class="donator-contents-title">请输入数量：</div>
-      <Input class="donator-contents-list" v-model="projectNumber" placeholder="Enter something..." clearable />
+      <Input class="donator-contents-list" style="border: 2px solid #dcdee2" v-model="projectNumber" placeholder="Enter something..." clearable />
     </div>
     <div class="donator-contents donator-contents-another">
       <div class="donator-contents-title">请描述募捐项目信息：</div>
-      <textarea  class="donator-contents-list textarea" v-model="textarea"></textarea>
+      <textarea class="donator-contents-list textarea" style="border: 2px solid #dcdee2" v-model="textarea"></textarea>
     </div>
-    <div class="donator-contents">
+    <div class="donator-contents" >
       <div class="donator-contents-title">开始-结束时间：</div>
-      <Date-picker class="donator-contents-list"
+      <Date-picker class="donator-contents-list" style="border: 2px solid #dcdee2"
       @on-change="handleChange"
       type="daterange"
       format="yyyy/MM/dd"
@@ -57,20 +57,16 @@ export default {
   methods: {
     donatorProject () {
       axios.post('http://localhost/type/getTypes').then((res) => {
-        console.log(res.data.data)
-        this.projectList = res.data.data
-        console.log(this.projectList)
+        if (res.data.message === 'true') {
+          this.projectList = res.data.data
+          this.$Message.info('接口成功')
+        }
       }).catch((res) => {
-        console.log('接口返回错误')
+        this.$Message.info('接口错误')
       })
-    },
-    selectOption (e) {
-      console.log(e.e.target.key)
-      console.log(this.userid)
     },
     handleChange (daterange) {
       this.dataValue = daterange
-      console.log(this.dataValue)
       for (var i = 0; i < this.dataValue.length - 1; i++) {
         this.starttime = this.dataValue[i]
         this.endtime = this.dataValue[i + 1]
@@ -92,10 +88,12 @@ export default {
           startDate: this.starttime,
           type_id: parseInt(this.model1)
         })).then((res) => {
-        console.log(res.data.message)
-        this.$router.push({path: '/'})
+        if (res.data.message === 'true') {
+          this.$router.push({path: '/'})
+          this.$Message.info('接口成功')
+        }
       }).catch((res) => {
-        console.log('接口返回错误')
+        this.$Message.info('接口错误')
       })
     }
   }
@@ -103,6 +101,9 @@ export default {
 </script>
 
 <style scoped>
+*{
+  font-size: 20px;
+}
 .donator {
   width: 100%;
   height: 100%;
@@ -116,6 +117,9 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+.ivu-select-selection {
+  border: 2px solid #dcdee2;
 }
 .donator-title {
   font-size: 20px;
@@ -133,16 +137,12 @@ export default {
   justify-content: space-around;
 }
 .donator-contents-title {
-  /* padding-top: 5%; */
   width: 40%;
   text-align: left;
 }
 .donator-contents-list {
   width: 100%;
 }
-/* .textarea {
-  height: 300px;
-} */
 textarea {
   overflow: auto;
   height: 150px;

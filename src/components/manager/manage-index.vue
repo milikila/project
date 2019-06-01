@@ -4,38 +4,25 @@
     <div class="manage-index">
       <Row class="Row">
         <Menu :theme="theme3" accordion>
-          <!-- <Submenu name="账户">
-            <template slot="title">
-              <Icon type="ios-create-outline" />账户管理
-            </template>
-            <MenuItem name="用户名密码" to="/managerPsd">用户名密码</MenuItem>
-          </Submenu> -->
           <Submenu name="用户管理">
             <template slot="title">
               <Icon type="ios-people"/>用户管理
             </template>
             <MenuItem name="账户管理" to="/user">账户管理</MenuItem>
-            <!-- <MenuItem name="捐助者账户管理" to="/helpUser">捐助者账户管理</MenuItem> -->
           </Submenu>
           <Submenu name="募捐项目管理">
             <template slot="title">
               <Icon type="ios-happy-outline"/>募捐项目管理
             </template>
             <MenuItem name="募捐项目管理" to="/RaiseType">募捐项目管理</MenuItem>
-            <MenuItem name="募捐项目类型增加" to="/addraiseType">募捐项目类型增加</MenuItem>
+            <MenuItem name="募捐项目类型增加" to="/addraiseType">募捐项目类型</MenuItem>
           </Submenu>
           <Submenu name="募捐审核">
             <template slot="title">
               <Icon type="ios-heart"/>募捐审核
             </template>
-            <MenuItem name="募捐审核" to="/auditingLoading">募捐审核</MenuItem>
-            <MenuItem name="募捐审核结果" to="/auditing">募捐审核结果</MenuItem>
-          </Submenu>
-          <Submenu name="募捐结果管理">
-            <template slot="title">
-              <Icon type="md-stats" />募捐结果管理
-            </template>
-            <MenuItem name="募捐结果管理" to="/resultManage">募捐结果管理</MenuItem>
+            <MenuItem name="募捐审核" to="/auditingLoading">募捐通过审核</MenuItem>
+            <MenuItem name="募捐未通过审核" to="/auditingFail">募捐未通过审核</MenuItem>
           </Submenu>
           <Submenu name="募捐结果统计">
             <template slot="title">
@@ -69,6 +56,9 @@ export default {
 }
 </script>
 <style scoped>
+* {
+  font-size:15px;
+}
 .manage-index {
   display: flex;
   top: 3.9rem;
@@ -76,15 +66,15 @@ export default {
   z-index: 100;
   background: #fff;
   width: 100%;
-  height: 100%;
+  height: 1000px;
 }
-.title {
+/* .title {
   display: flex;
   justify-content: center;
   align-items: center;
   color: rgb(39, 63, 201);
   font-size: 40px;
-}
+} */
 .manage-content {
   display: flex;
   width: 90%;

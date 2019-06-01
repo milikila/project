@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style>
+*{
+  font-size: 15px;
+}
 .app {
   display: flex;
   flex-direction: column;
